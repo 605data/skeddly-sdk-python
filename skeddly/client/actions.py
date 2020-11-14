@@ -8,7 +8,7 @@ class ActionsMixin:
 
         if (include is not None):
             queryParameters.append("include=" + include)
-            
+
         if (filter is not None):
             for p in filter:
                 queryParameters.append("filter." + p + "=" + filter[p])
@@ -37,24 +37,28 @@ class ActionsMixin:
 
         return self.invoke_get("Actions/" + actionId + queryString)
 
-    def create_action(self, actionType, name, isEnabled, schedule, parameters, postExecutionTriggers = None):
+    def create_action(self, actionType, name, isEnabled, schedule, parameters, comments, tags, postExecutionTriggers=None):
         body = {
             "actionType": actionType,
             "name": name,
             "isEnabled": isEnabled,
             "schedule": schedule,
             "parameters": parameters,
+            "tags": tags,
+            "comments": comments,
             "postExecutionTriggers": postExecutionTriggers
         }
 
         return self.invoke_post("Actions/", body)
 
-    def modify_action(self, actionId, name, isEnabled, schedule, parameters, postExecutionTriggers = None):
+    def modify_action(self, actionId, name, isEnabled, schedule, parameters, comments, tags,  postExecutionTriggers=None):
         body = {
             "name": name,
             "isEnabled": isEnabled,
             "schedule": schedule,
             "parameters": parameters,
+            "comments": comments,
+            "tags": tags,
             "postExecutionTriggers": postExecutionTriggers
         }
 
